@@ -1,0 +1,21 @@
+{
+  "name": "guild_dkp",
+  "version": "1.0.0",
+  "description": "because whitefag can't press buttons",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sya",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "node": "^16.6.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.1"
+  },
+  "keywords": []
+}

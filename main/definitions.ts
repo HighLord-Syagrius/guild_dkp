@@ -135,6 +135,7 @@ export function initRoster(players: string): Player[] {
 		!err && readFile("./players.json", (readErr: NodeJS.ErrnoException, data: Buffer) => {
 			if (!readErr) {
 				const playerArr = <Player[]>JSON.parse(data.toString());
+				// i'm tired and drunk to finish
 			}
 		})
 	})

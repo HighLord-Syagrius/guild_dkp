@@ -4,10 +4,16 @@ import { Guild, Player } from '../typeSafety/definitions';
 /**
  * Performs the given action on the providend players. If no players passed, affects the whole guild
  * @param action `(Player, params) => Player` any function on the guild as a whole. 
- * @param players `string[] | undefined` set of players affected by this action. If undefined affects whole guild
- * @param params `object` anything needed to satiate the params for the action
+ * @param options object containing the subParams
+ * @param options.players affected players; default all players if null/undef
+ * @param options.params the params passed to the action
+ * @param otpions.report if you want to report the new result in console. For now, at least, this will default as true
  */
-export default function (action: (p: Player, params?: object) => Player, players?: string[], params?: object): void {
+export default function (
+	action: (p: Player, params?: object) => Player,
+	options?: { players?: string[], params?: object, report?: boolean }
+): void {
+	const { players, params, report } = options || {};
 	try {
 		stat("./players.json", (statErr: NodeJS.ErrnoException) => {
 			if (statErr) { throw new Error().stack; }
@@ -21,7 +27,10 @@ export default function (action: (p: Player, params?: object) => Player, players
 						(delete guild[p])
 						: (guild[p] = action(guild[p], params));
 				});
-				writeFile("../history/players.json", JSON.stringify(guild), () => console.log("SHOTS FOR SYA"))
+				writeFile("../history/players.json", JSON.stringify(guild, null, 2), () => {
+					console.log("\nSHOTS FOR SYA\n");
+					!report && console.log("\n\nRESULTS====\n\n" + JSON.stringify(guild, null, 2));
+				})
 			})
 		})
 	} catch (e) {

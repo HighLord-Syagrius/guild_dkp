@@ -17,7 +17,7 @@ export const dkpDecay = (p: Player, decayPercent?: number): Player => {
 /**
  * @param params {number of bosses killed, date}
  */
-export const plusXBoss = (p: Player, params?: { bosses?: number; date: Date; }): Player => {
+export const plusXBoss = (p: Player, params?: { bosses: number, date?: Date; }): Player => {
 	return p.dkpEvent(
 		params?.date ? params.date.valueOf() : new Date().valueOf(),
 		(params?.bosses || 1) * bossMultiplier,
@@ -28,7 +28,7 @@ export const plusXBoss = (p: Player, params?: { bosses?: number; date: Date; }):
 /**
  * @param params {bonus amount, date}. If nothing passed, defaults to 50dkp bonus
  */
-export const bonus = (p: Player, params?: { bonus: number; date: Date; }): Player => {
+export const bonus = (p: Player, params?: { bonus?: number, date?: Date; }): Player => {
 	return p.dkpEvent(params?.date ? params.date.valueOf() : new Date().valueOf(), params?.bonus || 50, `Gracious Bonus of ${params?.bonus || 50} dkp!`);
 }
 

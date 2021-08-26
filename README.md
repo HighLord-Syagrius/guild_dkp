@@ -32,7 +32,7 @@
 
 Lads. 
 
-If you are just a guildie looking for current DKP, there will soon be a link directly to it for your consumption. The idea is to have all of the math immediately calculated and all of our results (and history) will be immediately available without having to upload anything.
+If you are just a guildie looking for current DKP, there will soon be a link directly to it for your consumption. The idea is to have all of the math immediately calculated and all of our results (and history) will be immediately available without having to fucking screenshot an idiotic excel spreadsheet (much shade).
 
 Anyone who knows what a `pull request` is, is allowed to chip in and help at any time.
 

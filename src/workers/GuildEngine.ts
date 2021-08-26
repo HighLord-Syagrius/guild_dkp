@@ -10,7 +10,7 @@ import { Guild, Player } from '../typeSafety/definitions';
 export default function (action: (p: Player, params?: object) => Player, players?: string[], params?: object): void {
 	stat("./players.json", (err: NodeJS.ErrnoException) => {
 		if (err) { throw new Error().stack; }
-		readFile("./players.json", (readErr: NodeJS.ErrnoException, data: Buffer) => {
+		readFile("../history/players.json", (readErr: NodeJS.ErrnoException, data: Buffer) => {
 			const guild = <Guild>JSON.parse(data.toString());
 			if (readErr) { throw new Error().stack; }
 
@@ -20,7 +20,7 @@ export default function (action: (p: Player, params?: object) => Player, players
 					(delete guild[p])
 					: (guild[p] = action(guild[p], params));
 			});
-			writeFile("./players.json", JSON.stringify(guild), () => console.log("SHOTS FOR SYA"))
+			writeFile("../history/players.json", JSON.stringify(guild), () => console.log("SHOTS FOR SYA"))
 		})
 	})
 }

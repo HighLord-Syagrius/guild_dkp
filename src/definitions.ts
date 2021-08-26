@@ -1,126 +1,137 @@
 /*
 
-        ________  ___  ___  ________  _________  ________          
-       |\   ____\|\  \|\  \|\   __  \|\___   ___\\   ____\         
-       \ \  \___|\ \  \\\  \ \  \|\  \|___ \  \_\ \  \___|_        
-        \ \_____  \ \   __  \ \  \\\  \   \ \  \ \ \_____  \       
-         \|____|\  \ \  \ \  \ \  \\\  \   \ \  \ \|____|\  \      
-           ____\_\  \ \__\ \__\ \_______\   \ \__\  ____\_\  \     
-          |\_________\|__|\|__|\|_______|    \|__| |\_________\    
-          \|_________|                             \|_________|    
-                                                                   
-                                                                   
-        ________ ________  ________                                
-       |\  _____\\   __  \|\   __  \                               
-       \ \  \__/\ \  \|\  \ \  \|\  \                              
-        \ \   __\\ \  \\\  \ \   _  _\                             
-         \ \  \_| \ \  \\\  \ \  \\  \|                            
-          \ \__\   \ \_______\ \__\\ _\                            
-           \|__|    \|_______|\|__|\|__|                           
-                                                                   
-                                                                   
-                                                                   
-        ________       ___    ___ ________                         
-       |\   ____\     |\  \  /  /|\   __  \                        
-       \ \  \___|_    \ \  \/  / | \  \|\  \                       
-        \ \_____  \    \ \    / / \ \   __  \                      
-         \|____|\  \    \/  /  /   \ \  \ \  \                     
-           ____\_\  \ __/  / /      \ \__\ \__\                    
-          |\_________\\___/ /        \|__|\|__|                    
-          \|_________\|___|/                                   
+		________  ___  ___  ________  _________  ________          
+	   |\   ____\|\  \|\  \|\   __  \|\___   ___\\   ____\         
+	   \ \  \___|\ \  \\\  \ \  \|\  \|___ \  \_\ \  \___|_        
+		\ \_____  \ \   __  \ \  \\\  \   \ \  \ \ \_____  \       
+		 \|____|\  \ \  \ \  \ \  \\\  \   \ \  \ \|____|\  \      
+		   ____\_\  \ \__\ \__\ \_______\   \ \__\  ____\_\  \     
+		  |\_________\|__|\|__|\|_______|    \|__| |\_________\    
+		  \|_________|                             \|_________|    
+																   
+																   
+		________ ________  ________                                
+	   |\  _____\\   __  \|\   __  \                               
+	   \ \  \__/\ \  \|\  \ \  \|\  \                              
+		\ \   __\\ \  \\\  \ \   _  _\                             
+		 \ \  \_| \ \  \\\  \ \  \\  \|                            
+		  \ \__\   \ \_______\ \__\\ _\                            
+		   \|__|    \|_______|\|__|\|__|                           
+																   
+																   
+																   
+		________       ___    ___ ________                         
+	   |\   ____\     |\  \  /  /|\   __  \                        
+	   \ \  \___|_    \ \  \/  / | \  \|\  \                       
+		\ \_____  \    \ \    / / \ \   __  \                      
+		 \|____|\  \    \/  /  /   \ \  \ \  \                     
+		   ____\_\  \ __/  / /      \ \__\ \__\                    
+		  |\_________\\___/ /        \|__|\|__|                    
+		  \|_________\|___|/                                   
 
 		  
 	These shall be the basic definitions for guild DKP management.
-
-	Pull-requests welcome. Feel free-to further delineate roles.
 */
- 
+
 import { readFile, writeFile, stat, read } from "fs";
 
 export interface Guild {
 	[key: string]: Player;
 }
 
-interface FirstRaid {
-	attendanceDate: string;
-	dkpEarned: number;
+interface RaidDay {
+	date: number;
+	changeValue: number[];
+	comments?: string;
 }
 
 enum Ranking {
+	IS_A_CUNT,		// immutable
 	STANDARD,		// mutable
 	DECENT,			// mutable
 	OFFICER,		// mutable
-	FAVORED_OF_SYA, // reserved for Hateless
-	GOD_TIER        // reserved for Sya
+	FAVORED_OF_SYA, // immutable; reserved for Hateless
+	GOD_TIER        // immutable; reserved for Sya
 }
 
-export class Player {
-	dkp: number = 0;
-	lastAttendance: string = ""; // formatting as java.time.dateformatter passing "MM/dd/yyyy"
-	lastExpense: string = "";
-	dkpHistory: number[] = [];
-	attendanceHistory: string[] = []; // array of type specified in lastAttendance
-	ranking: Ranking = Ranking.STANDARD;
 
-	constructor(firstRaid?: FirstRaid) {
+export interface PlayerDetails {
+	name: string
+	runningTotal: number;
+	history: RaidDay[];
+	ranking: Ranking;
+}
+
+const oneDayInMillis: number = 8640000;
+const bossMultiplier: number = 25;
+export class Player implements PlayerDetails {
+	name: string;
+	ranking: Ranking;
+	history: RaidDay[];
+	runningTotal: number;
+
+	constructor(details: PlayerDetails, firstRaid?: RaidDay) {
+		const { history, name, ranking, runningTotal } = details;
+		this.name = name.trim() || "SCUMMY SLUT";
+		this.ranking = ranking || Ranking.STANDARD;
+		this.history = history || [];
+		this.runningTotal = runningTotal || 0;
 		if (firstRaid) {
-			const { attendanceDate, dkpEarned } = firstRaid;
-			this.lastAttendance = attendanceDate;
-			this.dkpHistory = [dkpEarned];
+			this.history = [<RaidDay>firstRaid];
 		}
 	}
 
 	// actual methods on this class
-	latestAttendance(date: string) {
-		if (this.attendanceHistory[this.attendanceHistory.length - 1] !== date) {
-			this.attendanceHistory.push(date);
-		}
-	}
-
-	earnDKP(dkpGranted: number, date: string): void {
-		this.latestAttendance(date);
-		this.dkp += dkpGranted;
-		this.dkpHistory.push(dkpGranted);
-		if (this.attendanceHistory[this.attendanceHistory.length - 1] !== date) {
-			this.attendanceHistory.push(date);
-		}
-	}
-
-	spendDKP(dkpEaten: number, date: string): void {
-		this.latestAttendance(date);
-		this.lastExpense = date;
-		this.dkp -= dkpEaten;
-		if (this.attendanceHistory[this.attendanceHistory.length - 1] !== date) {
-			this.dkpHistory[this.dkpHistory.length - 1] -= dkpEaten;
+	public dkpEvent(date: number, amount: number, comment?: string): Player {
+		const eventInd = this.history.findIndex(hist => hist.date == date - date % oneDayInMillis);
+		if (eventInd != -1) {
+			const event = this.history[eventInd];
+			event.changeValue.push(amount);
+			comment && event.comments ? (event.comments += comment) : (event.comments = comment);
 		} else {
-			this.dkpHistory.push(dkpEaten);
+			this.history.push({ changeValue: [amount], date: date, comments: comment })
+			this.history.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
 		}
+		return this;
 	}
+
+	public raidDay(bosses: number, dayOffset?: number): Player {
+		const date = new BetterDate().addDays(dayOffset || 0).valueOf();
+		return this.dkpEvent(date, bosses * bossMultiplier, `Standard Raid. Bosses: ${bosses}`);
+	}
+
+	// can't return PlayerDetails unless we override Stringify.
+	public static playerReport(): string {
+		return JSON.stringify(this);
+	}
+
 }
 
 export class DecentPlayer extends Player {
-	ranking = Ranking.DECENT;
-	constructor(firstRaid?: FirstRaid) {
-		super(firstRaid);
+	public constructor(details: PlayerDetails, firstRaid?: RaidDay) {
+		super(details, firstRaid);
+		this.ranking = Ranking.DECENT;
 	}
 	// unique methods TBD
 }
 export class CorePlayer extends Player { }
 
 export class Officer extends Player {
-	ranking = Ranking.OFFICER;
-	constructor(firstRaid?: FirstRaid) {
-		super(firstRaid)
+	public constructor(details: PlayerDetails, firstRaid?: RaidDay) {
+		super(details, firstRaid);
+		this.ranking = Ranking.OFFICER;
 	}
 	// unique methods TBD
 }
 
 export class GodTierPlayer extends Player {
-	ranking = Ranking.GOD_TIER;
-	constructor(firstRaid?: FirstRaid) {
-		super(firstRaid);
+	public constructor(details: PlayerDetails, firstRaid?: RaidDay) {
+		super(details, firstRaid);
+		this.ranking = Ranking.GOD_TIER;
 	}
-	// bitch. get off my lawn
+	public static amIGod(): void {
+		console.log("YES")
+	}
 }
 
 
@@ -130,14 +141,21 @@ export class GodTierPlayer extends Player {
 	For non-developers who see this -- this is what we refer to in the vernacular as "lazy programming".
 */
 
-export function initRoster(players: string): Player[] {
+export function initRoster(players: string): Guild {
 	stat("./players.json", (err: NodeJS.ErrnoException) => {
-		!err && readFile("./players.json", (readErr: NodeJS.ErrnoException, data: Buffer) => {
-			if (!readErr) {
-				const playerArr = <Player[]>JSON.parse(data.toString());
-				// i'm tired and drunk to finish
-			}
+		if (err) { throw new Error().stack; }
+		readFile("./players.json", (readErr: NodeJS.ErrnoException, data: Buffer) => {
+			if (readErr) { throw new Error().stack; }
+			const guild = <Guild>JSON.parse(data.toString());
 		})
 	})
-	return [];
+
+	return {}; // TODO fix this
+}
+class BetterDate extends Date {
+	addDays(days: number): Date {
+		var date = new Date(this.valueOf());
+		date.setDate(date.getDate() + days);
+		return date;
+	}
 }

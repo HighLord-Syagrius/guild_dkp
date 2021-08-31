@@ -1,10 +1,20 @@
 {
 	"compilerOptions": {
-	  "noImplicitAny": true,
-	  "strictNullChecks": true,
-	  "target": "ESNext",
-	  "lib": ["ESNext", "dom"],
-	  "removeComments": true,
+		"allowUnreachableCode": true,
+		"alwaysStrict": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"noImplicitThis": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"target": "ESNext",
+		"noUncheckedIndexedAccess": true,
+		"lib": [
+			"ESNext",
+			"dom"
+		],
+		"removeComments": true,
 	},
-	"exclude" : ["./src/private/endeavors.ts"],
-  }
+	"exclude": [
+		"./src/private/endeavors.ts"
+	],
+}

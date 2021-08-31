@@ -18,9 +18,11 @@ export const dkpDecay = (p: Player, decayPercent?: number): Player => {
  * @param params {number of bosses killed, date}
  */
 export const plusXBoss = (p: Player, params?: { bosses: number, date?: Date; }): Player => {
+	const pDate = params?.date;
+	
 	return p.dkpEvent(
 		params?.date ?
-			params.date.valueOf() - params.date.valueOf() % oneDayInMillis
+			(params.date.valueOf() - params.date.valueOf() % oneDayInMillis)
 			: new Date().valueOf() - new Date().valueOf() % oneDayInMillis,
 		(params?.bosses || 1) * bossMultiplier,
 		`Killed ${params?.bosses} Boss` + params?.bosses ? "es" : ""

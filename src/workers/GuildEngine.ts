@@ -1,5 +1,5 @@
 import { readFile, stat, writeFile, rename, copyFile, write } from 'fs';
-import { Guild, Player, Abbrev } from '../private/parts';
+import { Guild, Player, Abbrev, PlayerDetails } from '../private/parts';
 
 /**
  * Performs the given action on the providend players. If no players passed, affects the whole guild
@@ -27,12 +27,12 @@ export default function (
 					// this sequence is actually pretty funny
 					(players ? players : Object.keys(guild)).forEach(p => {
 						if (!guild[p]) { guild[p] = Player.newPlayer(p); } else {
-							guild[p] = new Player(guild[p])
+							guild[p] = new Player(<PlayerDetails>guild[p])
 						}
 						typeof params == "string" && (<string>params).toUpperCase() == "FUCKFELDMAN" ?  // TODO, log historical members? or just leave to git history?
 							(delete guild[p])
-							: (guild[p] = action(guild[p], params));
-						abbrev[p] = { total: guild[p].runningTotal, last_update: new Date().toDateString() };
+							: (guild[p] = action(<Player>guild[p], params));
+						abbrev[p] = { total: (guild[p] as Player).runningTotal, last_update: new Date().toDateString() };
 					});
 					writeFile("./history/players.json", JSON.stringify(guild, null, 2), () => {
 						log("\nSHOTS FOR SYA\n");

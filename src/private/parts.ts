@@ -60,9 +60,9 @@ export class Player implements PlayerDetails {
 		const eventInd = this.history.findIndex(hist => hist.date == date - date % oneDayInMillis);
 		if (eventInd != -1) {
 			const event = this.history[eventInd];
-			event.changeValue.push(amount);
+			event && event.changeValue.push(amount);
 			this.runningTotal += amount;
-			comment && event.comments ? (event.comments += "\n" + comment) : (event.comments = comment);
+			comment && event && event.comments ? (event.comments += "\n" + comment) : (event && (event.comments = comment));
 		} else {
 			this.history.push({ changeValue: [amount], date: date - date % oneDayInMillis, comments: comment })
 			this.history.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());

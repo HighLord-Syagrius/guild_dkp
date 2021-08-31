@@ -1,26 +1,17 @@
 /*
 	These shall be the basic objects for guild DKP management.
 */
+export interface Abbrev {
+	[key: string]: {
+		last_update: string;
+		total: number;
+	}
+
+}
 
 export interface Guild {
 	[key: string]: Player;
 }
-
-interface RaidDay {
-	date: number;
-	changeValue: number[];
-	comments?: string;
-}
-
-enum Ranking {
-	IS_A_CUNT,		// immutable
-	STANDARD,		// mutable
-	DECENT,			// mutable
-	OFFICER,		// mutable
-	FAVORED_OF_SYA, // immutable; reserved for Hateless
-	GOD_TIER        // immutable; reserved for Sya
-}
-
 
 export interface PlayerDetails {
 	name: string
@@ -29,7 +20,23 @@ export interface PlayerDetails {
 	ranking: Ranking;
 }
 
-const oneDayInMillis: number = 8640000;
+export enum Ranking {
+	IS_A_CUNT,		// immutable
+	SHIT_TIER,	 	// immutable
+	STANDARD,		// mutable
+	DECENT,			// mutable
+	OFFICER,		// mutable
+	FAVORED_OF_SYA, // immutable; reserved for Hateless
+	GOD_TIER        // immutable; reserved for Sya
+}
+
+interface RaidDay {  // will make sense later; if you are reading this top-down
+	date: number;
+	changeValue: number[];
+	comments?: string;
+}
+
+export const oneDayInMillis: number = 8640000;
 export const bossMultiplier: number = 25;
 
 export class Player implements PlayerDetails {
@@ -54,9 +61,10 @@ export class Player implements PlayerDetails {
 		if (eventInd != -1) {
 			const event = this.history[eventInd];
 			event.changeValue.push(amount);
-			comment && event.comments ? (event.comments += comment) : (event.comments = comment);
+			this.runningTotal += amount;
+			comment && event.comments ? (event.comments += "\n" + comment) : (event.comments = comment);
 		} else {
-			this.history.push({ changeValue: [amount], date: date, comments: comment })
+			this.history.push({ changeValue: [amount], date: date - date % oneDayInMillis, comments: comment })
 			this.history.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
 		}
 		return this;
@@ -65,6 +73,9 @@ export class Player implements PlayerDetails {
 	// can't return PlayerDetails unless we override Stringify.
 	public static playerReport(): string {
 		return JSON.stringify(this);
+	}
+	public static newPlayer(name: string): Player {
+		return new Player({ name: name, ranking: Ranking.SHIT_TIER, history: [], runningTotal: 0 });
 	}
 }
 

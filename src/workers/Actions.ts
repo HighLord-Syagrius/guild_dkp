@@ -1,4 +1,4 @@
-import { bossMultiplier, Player } from '../typeSafety/definitions';
+import { bossMultiplier, Player, Ranking, oneDayInMillis } from '../private/parts';
 
 /**
  * Collection of "shortcut" actions to affect dkp. Contains many convenience methods
@@ -19,7 +19,9 @@ export const dkpDecay = (p: Player, decayPercent?: number): Player => {
  */
 export const plusXBoss = (p: Player, params?: { bosses: number, date?: Date; }): Player => {
 	return p.dkpEvent(
-		params?.date ? params.date.valueOf() : new Date().valueOf(),
+		params?.date ?
+			params.date.valueOf() - params.date.valueOf() % oneDayInMillis
+			: new Date().valueOf() - new Date().valueOf() % oneDayInMillis,
 		(params?.bosses || 1) * bossMultiplier,
 		`Killed ${params?.bosses} Boss` + params?.bosses ? "es" : ""
 	);
@@ -29,7 +31,7 @@ export const plusXBoss = (p: Player, params?: { bosses: number, date?: Date; }):
  * @param params {bonus amount, date}. If nothing passed, defaults to 50dkp bonus
  */
 export const bonus = (p: Player, params?: { bonus?: number, date?: Date; }): Player => {
-	return p.dkpEvent(params?.date ? params.date.valueOf() : new Date().valueOf(), params?.bonus || 50, `Gracious Bonus of ${params?.bonus || 50} dkp!`);
+	return p.dkpEvent(params?.date ? params.date.valueOf() : new Date().valueOf(), params?.bonus || 0, `Gracious Bonus of ${params?.bonus || 0} dkp!`);
 }
 
 // look at me following modern module practices

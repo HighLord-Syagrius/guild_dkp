@@ -32,7 +32,9 @@
 
 Lads. 
 
-If you are just a guildie looking for current DKP, there will soon be a link directly to it for your consumption. The idea is to have all of the math immediately calculated and all of our results (and history) will be immediately available without having to fucking screenshot an idiotic excel spreadsheet (much shade).
+All DKP history is available via this repo's commit history. The definition of a viable test (yet to be written) is hereby defined as "can we reproduce the current state using the historical files." 
+
+For a readable version of the current state of DKP, please refer to `./src/history/readable.json`. It is a truncated version of the full history, designed for readability. 
 
 Anyone who knows what a `pull request` is, is allowed to chip in and help at any time.
 

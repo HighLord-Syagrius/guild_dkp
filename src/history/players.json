@@ -1,7 +1,327 @@
 {
-	"Syagria": {
-		"ranking": 6,
-		"history": [],
-		"runningTotal": 0
-	}
+  "Syagria": {
+    "ranking": 6,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Qdog": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Jehuty": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Frehelthcare": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Maydaymalone": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Mylittlepwny": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Phillistine": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Sulla": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Kerzun": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Cheezeitz": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Bigwinner": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Laverin": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Boilingbull": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Incarnáte": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Ancientgring": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Tavodlech": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Coasty": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Featherwind": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Cescgabriel": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Nótt": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Druwuidd": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Halcion": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Maximumtaco": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Attisal": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  },
+  "Ifail": {
+    "ranking": 1,
+    "history": [
+      {
+        "changeValue": [
+          50
+        ],
+        "date": 1630463040000,
+        "comments": "es"
+      }
+    ],
+    "runningTotal": 0
+  }
 }
